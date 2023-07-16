@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>sonar-helloworld-plugin</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.sonarsource.sonarqube</groupId>
+            <artifactId>sonar-plugin-api</artifactId>
+            <version>7.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.sonarsource.xml</groupId>
+            <artifactId>sonar-xml-plugin</artifactId>
+            <version>2.0.1.2020</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.sonarsource.java</groupId>
+            <artifactId>sonar-java-plugin</artifactId>
+            <version>7.9.0.28969</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+                <artifactId>sonar-packaging-maven-plugin</artifactId>
+                <version>1.18.0.372</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <!-- the entry-point class that extends org.sonar.api.SonarPlugin -->
+                    <pluginKey>hello-world-plugin</pluginKey>
+                    <pluginClass>org.example.HelloWorldPlugin</pluginClass>
+                    <pluginDescription>A hello-world plugin for learning sonar plugin's development.</pluginDescription>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
