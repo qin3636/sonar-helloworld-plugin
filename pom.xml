@@ -33,6 +33,11 @@
             <version>7.9.0.28969</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
     </dependencies>
 
     <build>
