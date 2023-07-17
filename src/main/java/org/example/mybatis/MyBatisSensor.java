@@ -57,7 +57,7 @@ public class MyBatisSensor implements Sensor {
                             LOGGER.info("checking the sql " + sql);
                             if (sqlWithUrCheck(sql)) {
                                 LOGGER.warn(sql + " has with ur");
-                                saveWithUrIssue(context, inputFile, sql, 1);
+                                saveWithUrIssue(context, inputFile, sql);
                             }
                         }
                     }
@@ -82,11 +82,11 @@ public class MyBatisSensor implements Sensor {
         return matcher.matches();
     }
 
-    private void saveWithUrIssue(SensorContext sensorContext, InputFile file, String sql, int lineNumber) {
+    private void saveWithUrIssue(SensorContext sensorContext, InputFile file, String sql) {
         NewIssue newIssue = sensorContext.newIssue();
         newIssue.forRule(RuleKey.of(MyBatisRule.REPOSITORY_KEY, MyBatisRule.RULE_KEY));
         NewIssueLocation newIssueLocation = newIssue.newLocation();
-        newIssueLocation.on(file).at(file.selectLine(lineNumber)).message(MyBatisRule.RULE_DESCRIPTION + " " + sql);
+        newIssueLocation.on(file).message("using with ur in sql [" + sql + "] might be unsafe.");
         newIssue.at(newIssueLocation);
         newIssue.save();
     }
