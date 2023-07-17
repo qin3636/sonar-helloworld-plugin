@@ -15,7 +15,6 @@ import org.sonar.api.batch.sensor.issue.NewIssueLocation;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
-import org.sonar.plugins.xml.Xml;
 
 import java.io.File;
 import java.util.Iterator;
@@ -35,7 +34,7 @@ public class MyBatisSensor implements Sensor {
     public void execute(SensorContext context) {
         FileSystem fileSystem = context.fileSystem();
         FilePredicates predicates = fileSystem.predicates();
-        Iterable<InputFile> files = fileSystem.inputFiles(predicates.hasLanguage(Xml.KEY));
+        Iterable<InputFile> files = fileSystem.inputFiles(predicates.hasLanguage("xml"));
         for (InputFile inputFile : files) {
             String path = inputFile.uri().getPath();
             File file = new File(path);

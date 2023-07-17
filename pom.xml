@@ -22,18 +22,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.sonarsource.xml</groupId>
-            <artifactId>sonar-xml-plugin</artifactId>
-            <version>2.0.1.2020</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.sonarsource.java</groupId>
-            <artifactId>sonar-java-plugin</artifactId>
-            <version>7.9.0.28969</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>1.6.1</version>

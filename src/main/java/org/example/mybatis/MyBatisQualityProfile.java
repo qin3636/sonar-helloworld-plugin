@@ -1,7 +1,6 @@
 package org.example.mybatis;
 
 import org.sonar.api.server.profile.BuiltInQualityProfilesDefinition;
-import org.sonar.plugins.xml.Xml;
 
 public class MyBatisQualityProfile implements BuiltInQualityProfilesDefinition {
 
@@ -9,7 +8,7 @@ public class MyBatisQualityProfile implements BuiltInQualityProfilesDefinition {
 
     @Override
     public void define(Context context) {
-        NewBuiltInQualityProfile profile = context.createBuiltInQualityProfile(QUALITY_PROFILE_NAME, Xml.KEY);
+        NewBuiltInQualityProfile profile = context.createBuiltInQualityProfile(QUALITY_PROFILE_NAME, "xml");
         profile.setDefault(false);
         profile.activateRule(MyBatisRule.REPOSITORY_KEY, MyBatisRule.RULE_KEY);
     }

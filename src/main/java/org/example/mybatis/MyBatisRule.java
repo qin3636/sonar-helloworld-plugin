@@ -3,7 +3,6 @@ package org.example.mybatis;
 import org.sonar.api.rule.Severity;
 import org.sonar.api.rules.RuleType;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.plugins.xml.Xml;
 
 public class MyBatisRule implements RulesDefinition {
 
@@ -15,7 +14,7 @@ public class MyBatisRule implements RulesDefinition {
 
     @Override
     public void define(Context context) {
-        NewRepository repository = context.createRepository(REPOSITORY_KEY, Xml.KEY);
+        NewRepository repository = context.createRepository(REPOSITORY_KEY, "xml");
         repository.createRule(RULE_KEY)
                 .setName(RULE_NAME)
                 .setHtmlDescription(RULE_DESCRIPTION)
