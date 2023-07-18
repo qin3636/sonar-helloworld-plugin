@@ -15,7 +15,10 @@ import org.sonar.api.batch.sensor.issue.NewIssueLocation;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.Iterator;
 import java.util.regex.Matcher;
@@ -39,6 +42,13 @@ public class MyBatisSensor implements Sensor {
             String path = inputFile.uri().getPath();
             File file = new File(path);
             SAXReader saxReader = new SAXReader();
+
+            // 忽略DTD校验
+            saxReader.setValidation(false);
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(new byte[0]);
+            EntityResolver customEntityResolver = (publicId, systemId) -> new InputSource(byteArrayInputStream);
+            saxReader.setEntityResolver(customEntityResolver);
+
             try {
                 Document document = saxReader.read(file);
                 // 获取根节点，判断是否是mybatis文件
