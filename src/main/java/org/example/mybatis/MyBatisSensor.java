@@ -41,7 +41,8 @@ public class MyBatisSensor implements Sensor {
         for (InputFile inputFile : files) {
             String path = inputFile.uri().getPath();
             File file = new File(path);
-            SAXReader saxReader = new SAXReader();
+            SAXReader saxReader = new CustomSAXReader();
+            saxReader.setDocumentFactory(new CustomDocumentFactory());
 
             // 忽略DTD校验
             saxReader.setValidation(false);
@@ -59,15 +60,15 @@ public class MyBatisSensor implements Sensor {
                 Iterator rootElementIterator = rootElement.elementIterator();
                 while (rootElementIterator.hasNext()) {
                     Object obj = rootElementIterator.next();
-                    if (obj instanceof Element) {
-                        Element element = (Element) obj;
+                    if (obj instanceof CustomDefaultElement) {
+                        CustomDefaultElement element = (CustomDefaultElement) obj;
                         if ("select".equalsIgnoreCase(element.getName())) {
                             Object data = element.getData();
                             String sql = data instanceof String ? (String) data : null;
                             LOGGER.info("checking the sql " + sql);
                             if (sqlWithUrCheck(sql)) {
                                 LOGGER.warn(sql + " has with ur");
-                                saveWithUrIssue(context, inputFile, sql);
+                                saveWithUrIssue(context, inputFile, sql, element.getLineNumber());
                             }
                         }
                     }
@@ -92,11 +93,11 @@ public class MyBatisSensor implements Sensor {
         return matcher.matches();
     }
 
-    private void saveWithUrIssue(SensorContext sensorContext, InputFile file, String sql) {
+    private void saveWithUrIssue(SensorContext sensorContext, InputFile file, String sql, int lineNumber) {
         NewIssue newIssue = sensorContext.newIssue();
         newIssue.forRule(RuleKey.of(MyBatisRule.REPOSITORY_KEY, MyBatisRule.RULE_KEY));
         NewIssueLocation newIssueLocation = newIssue.newLocation();
-        newIssueLocation.on(file).message("using with ur in sql [" + sql + "] might be unsafe.");
+        newIssueLocation.on(file).at(file.selectLine(lineNumber)).message("using with ur in sql [" + sql + "] might be unsafe.");
         newIssue.at(newIssueLocation);
         newIssue.save();
     }
