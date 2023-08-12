@@ -8,8 +8,8 @@ import org.sonar.api.Plugin;
 public class HelloWorldPlugin implements Plugin {
     @Override
     public void define(Context context) {
-//        // 注册语言
-//        context.addExtension(CustomLanguage.class);
+        // 注册语言
+        context.addExtension(CustomLanguage.class);
 
         // 注册规则
         context.addExtension(HelloWorldRule.class);

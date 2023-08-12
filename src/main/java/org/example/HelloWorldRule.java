@@ -17,7 +17,7 @@ public class HelloWorldRule implements RulesDefinition {
     @Override
     public void define(Context context) {
         // 定义规则存储
-        NewRepository newRepository = context.createRepository(REPOSITORY_KEY, "java");
+        NewRepository newRepository = context.createRepository(REPOSITORY_KEY, CustomLanguage.LANGUAGE_KEY);
 
         // 生成规则
         newRepository.createRule(RULE_KEY)
